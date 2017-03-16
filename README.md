@@ -135,7 +135,10 @@ import {createStore} from "redux";
 
 function reducer(state, action) { return state; }
 
-export default function (initialState) {
+export default function (initialState, {req, res}) {
+    if (req) { // it means it's launched from server in CLI mode
+        initialState = {foo: res.url}; // so we can pre-populate something
+    }
     return createStore(
         reducer,
         initialState
